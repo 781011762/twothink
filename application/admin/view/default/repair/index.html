@@ -43,7 +43,7 @@
 						<td>{$repair.create_time|time_format}</a></td>
 						<td>{$repair.status}{$repair.status_text}</a></td>
 						<td>
-							<a title="查看详情" href="{:url('edit?id='.$repair['id'].'&pid='.$pid)}">查看详情</a>
+							<a title="修改报修" href="{:url('edit?id='.$repair['id'].'&pid='.$pid)}">修改报修</a>
 							<a class="confirm ajax-get" title="删除" href="{:url('del?id='.$repair['id'])}">删除</a>
 						</td>
 					</tr>

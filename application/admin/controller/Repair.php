@@ -29,6 +29,10 @@ class Repair extends Admin{
 			if(!$validate->check($post_data)){
 				return $this->error($validate->getError());
 			}
+			//>>>>增加货号
+			$sn = 'BX_'.strtoupper(uniqid());
+			$post_data['sn'] = $sn;
+			//<<<<<<<<
 			$data = $Repair->create($post_data);
 			if($data){
 				$this->success('新增成功', url('index'));
@@ -53,7 +57,7 @@ class Repair extends Admin{
 	}
 
 	/**
-	 * 编辑频道
+	 * 编辑报修
 	 * @author 艺品网络  <twothink.cn>
 	 */
 	public function edit($id = 0){
@@ -84,7 +88,7 @@ class Repair extends Admin{
 
 			$this->assign('pid', $pid);
 			$this->assign('info', $info);
-			$this->meta_title = '编辑导航';
+			$this->meta_title = '修改报修';
 			return $this->fetch();
 		}
 	}
