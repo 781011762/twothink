@@ -1,6 +1,7 @@
 <?php
 namespace app\home\logic;
 use think\Model;
+use think\Request;
 
 /**
  * 文档模型逻辑层公共模型

@@ -14,7 +14,7 @@ use think\Model;
  * 报修模型
  */
 
-class Repair extends Model {
-    protected $insert = ['status'=>1];
+class OwnerCertification extends Model {
+    protected $insert =  ['status'=>1];
 	protected $autoWriteTimestamp = true;       // int 型    自动更新时间戳
 }

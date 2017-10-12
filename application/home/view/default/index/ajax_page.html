@@ -1,0 +1,21 @@
+{block name="header"}
+    {article:list name="article" row="1" category="$category" child="true"}
+    <div class="row noticeList">
+        <a href="{:url('Article/detail?id='.$article['id'])}">
+            <div class="col-xs-2">
+                <img class="noticeImg" src="__ROOT__{$article.cover_id|get_cover_path}"/>
+            </div>
+            <div class="col-xs-10">
+                <a href="{:url('Article/detail?id='.$article['id'])}">
+                    <p class="title">{$article.title}</p>
+                    <p class="intro">{$article.description}</p></a>
+                <p class="info">浏览: {$article.view}
+                    {if condition="$category eq 44"}<a href="{:url('member/activeApplication?id='.$article['id'])}">申请参加</a>{/if}
+                    <span class="pull-right">{$article.create_time|date='Y-m-d H:i',###}</span>
+                </p>
+            </div>
+        </a>
+    </div>
+<button class="more" onclick="loadPage({$category},{$page})">获取更多</button>
+{/article:list}
+{/block}

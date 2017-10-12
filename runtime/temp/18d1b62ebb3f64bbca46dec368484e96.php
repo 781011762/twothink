@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:68:"D:\tt.com\public/../application/admin/view/default/repair\index.html";i:1506738601;s:67:"D:\tt.com\public/../application/admin/view/default/public\base.html";i:1496373782;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:80:"D:\tt.com\public/../application/admin/view/default/active_application\index.html";i:1507710344;s:67:"D:\tt.com\public/../application/admin/view/default/public\base.html";i:1496373782;}*/ ?>
 <!doctype html>
 <html>
 <head>
@@ -101,47 +101,45 @@
 
             
 	<div class="main-title">
-		<h2>报修管理</h2>
+		<h2><?php echo $meta_title; ?></h2>
 	</div>
 
 	<div class="cf">
 		<a class="btn" href="<?php echo url('add','pid='.$pid); ?>">新 增</a>
-		<a class="btn" href="javascript:;">删 除</a>
+		<button class="btn ajax-post confirm" url="<?php echo url('del'); ?>" target-form="ids">批量删除</button>
 		<button class="btn list_sort" url="<?php echo url('sort',array('pid'=>input('get.pid',0)),''); ?>">排序</button>
 	</div>
 
 	<div class="data-table table-striped">
-		<table>
+		<form class="ids">
+			<table>
 			<thead>
 				<tr>
 					<th class="row-selected">
 						<input class="checkbox check-all" type="checkbox">
 					</th>
-					<th>ID</th>
-					<th>报修单号</th>
-					<th>报修人</th>
-					<th>电话</th>
-					<th>地址</th>
-					<th>问题</th>
-                    <th>报修时间</th>
-                    <th>状态</th>
+					<th>活动</th>
+					<th>申请用户</th>
+					<th>申请时间</th>
+					<th>申请状态</th>
 					<th>操作</th>
 				</tr>
 			</thead>
 			<tbody>
-				<?php if(!(empty($list) || (($list instanceof \think\Collection || $list instanceof \think\Paginator ) && $list->isEmpty()))): if(is_array($list) || $list instanceof \think\Collection || $list instanceof \think\Paginator): $i = 0; $__LIST__ = $list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$repair): $mod = ($i % 2 );++$i;?>
+				<?php if(!(empty($list) || (($list instanceof \think\Collection || $list instanceof \think\Paginator ) && $list->isEmpty()))): if(is_array($list) || $list instanceof \think\Collection || $list instanceof \think\Paginator): $i = 0; $__LIST__ = $list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$activeApplication): $mod = ($i % 2 );++$i;?>
 					<tr>
-						<td><input class="ids row-selected" type="checkbox" name="" id="" value="<?php echo $repair['id']; ?>"> </td>
-						<td><?php echo $repair['id']; ?></td>
-						<td><?php echo $repair['sn']; ?></td>
-						<td><?php echo $repair['name']; ?></a></td>
-						<td><?php echo $repair['tel']; ?></a></td>
-						<td><?php echo $repair['address']; ?></a></td>
-						<td><?php echo $repair['title']; ?></a></td>
-						<td><?php echo time_format($repair['create_time']); ?></a></td>
-						<td><?php echo $repair['status']; ?><?php echo $repair['status_text']; ?></a></td>
+						<td><input class="ids row-selected" type="checkbox" name="id[]" value="<?php echo $repair['id']; ?>"></td>
+						<td><?php echo $activeApplication['items']['title']; ?></td>
+						<td><?php echo $activeApplication['uid']; ?></td>
+						<td><?php echo time_format($activeApplication['create_time']); ?></td>
 						<td>
-							<a title="修改报修" href="<?php echo url('edit?id='.$repair['id'].'&pid='.$pid); ?>">修改报修</a>
+							<a href="<?php echo url('setStatus?ids='.$repair['id'].'&status='.abs(1-$repair['status'])); ?>" class="ajax-get">
+								<button><?php echo !empty($repair['status']) && $repair['status']==1?"未处理":"已处理"; ?></button>
+							</a>
+						</td>
+						<td>
+							<a title="报修详情" href="<?php echo url('details?id='.$repair['id']); ?>">详情</a>
+							<a title="修改报修" href="<?php echo url('edit?id='.$repair['id']); ?>">修改</a>
 							<a class="confirm ajax-get" title="删除" href="<?php echo url('del?id='.$repair['id']); ?>">删除</a>
 						</td>
 					</tr>
@@ -150,6 +148,7 @@
 				<?php endif; ?>
 			</tbody>
 		</table>
+		</form>
 	</div>
 
         </div>

@@ -29,22 +29,29 @@ class Article extends TagLib{
     public function taglist($tag, $content){
         $name   = $tag['name'];
         $cate   = $tag['category'];
+        $model  = isset($tag['model']) ? $tag['model'] : '';
         $child  = empty($tag['child']) ? 'false' : $tag['child'];
         $row    = empty($tag['row'])   ? '10' : $tag['row'];
         $field  = empty($tag['field']) ? 'true' : $tag['field'];
+
+        if (empty($model)){
+        	$where = 'where($__WHERE__)';
+        }else{
+        	$where = 'where(array_merge($__WHERE__,["model_id"=>'.$model.']))';
+        }
  
         $parse  = '<?php ';
         $parse .= '$__CATE__ = model(\'Category\')->getChildrenId('.$cate.');'; 
         $parse .= '$__WHERE__ = model(\'Document\')->listMap($__CATE__);';
-//         $parse .= '$__LIST__ = \think\Db::name(\'Document\')->where($__WHERE__)->field($field)->order(\'`level` DESC,`id` DESC\')->page(!empty($_GET["p"])?$_GET["p"]:1,'.$row.')->select();';
-        $parse .= '$__LIST__ = \think\Db::name(\'Document\')->where($__WHERE__)->field($field)->order(\'`level` DESC,`id` DESC\')->paginate('.$row.');';
-//         $parse .= '$__PAGE__=$__LIST__->render(); ';
+//	     $parse .= '$__LIST__ = \think\Db::name(\'Document\')->where($__WHERE__)->field($field)->order(\'`level` DESC,`id` DESC\')->page(!empty($_GET["p"])?$_GET["p"]:1,'.$row.')->select();';
+        $parse .= '$__LIST__ = \think\Db::name(\'Document\')->'.$where.'->field($field)->order(\'`level` DESC,`id` DESC\')->paginate('.$row.');';
+//       $parse .= '$__PAGE__=$__LIST__->render(); ';
         $parse .=  'if($__LIST__){ $__LIST__=$__LIST__->toArray(); $__LIST__=$__LIST__[\'data\'];}';
         $parse .= ' ?>'; 
         $parse .= '{volist name="__LIST__" id="'. $name .'"}';
         $parse .= $content;
         $parse .= '{/volist}';
-//         $parse .= '<div>{$__PAGE__}</div>';
+//       $parse .= '<div>{$__PAGE__}</div>';
         return $parse;
     }
 

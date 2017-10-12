@@ -7,7 +7,7 @@
 // | Author: 艺品网络 
 // +----------------------------------------------------------------------
 
-namespace app\admin\model;
+namespace app\home\model;
 use think\Model;
 
 /**
@@ -15,6 +15,5 @@ use think\Model;
  */
 
 class Repair extends Model {
-    protected $insert = ['status'=>1];
-	protected $autoWriteTimestamp = true;       // int 型    自动更新时间戳
+    protected $insert = ['status'=>1];  
 }

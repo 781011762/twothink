@@ -1,0 +1,16 @@
+{extend name="base/common"/}
+
+{block name="header"}
+<div class="container-fluid" id="content"></div>
+{/block}
+{block name="script"}
+<script>
+    var loadPage = function ($category,$page) {
+        $(".more").remove();
+        $.get("{:url('index/ajaxPage')}",{category:$category,page:$page},function (data) {
+            $("#content").append(data) ;
+        })
+    }
+loadPage({$category},1);
+</script>
+{/block}

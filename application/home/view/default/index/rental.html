@@ -1,0 +1,57 @@
+{extend name="base/common"/}
+
+{block name="header"}
+    <div class="container-fluid">
+        <div class="blank"></div>
+        <div class="bs-example bs-example-tabs" data-example-id="togglable-tabs">
+            <ul id="myTabs" class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#home" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">租</a></li>
+                <li role="presentation"><a href="#profile" role="tab" id="profile-tab" data-toggle="tab" aria-controls="profile">售</a></li>
+            </ul>
+            <div id="myTabContent" class="tab-content">
+                <div role="tabpanel" class="tab-pane fade in active" id="home" aria-labelledby="home-tab">
+                    <p class="text-danger">免费提供小区内的租房信息</p>
+                    <div class="row">
+                        {article:list name="article" category="46" model="26" child="true"}
+                        <div class="col-xs-6 col-md-4">
+                            <div class="thumbnail">
+
+                                <img src="__ROOT__{$article.cover_id|get_cover_path}" alt="...">
+                                <div class="caption">
+                                    <h4>{$article.title}</h4>
+                                    <p class="zushouInfo">{$article.description}</p>
+                                    <p class="text-danger">{$article.id|get_price}元/月</p>
+                                    <p><a href="{:url('Article/detail?id='.$article['id'])}" class="btn btn-danger zushouBtn">详细信息</a> </p>
+                                </div>
+                            </div>
+                        </div>
+                        {/article:list}
+                    </div>
+                </div>
+
+                <div role="tabpanel" class="tab-pane fade" id="profile" aria-labelledby="profile-tab">
+                    <div class="tab-pane fade in active" id="home" aria-labelledby="home-tab">
+                    <p class="text-danger">免费提供小区内的二手房信息</p>
+                    <div class="row">
+
+                        {article:list name="article" category="46" model="27" child="true"}
+                        <div class="col-xs-6 col-md-4">
+                            <div class="thumbnail">
+                                <img src="__ROOT__{$article.cover_id|get_cover_path}" alt="...">
+                                <div class="caption">
+                                    <h4>{$article.title}</h4>
+                                    <p class="zushouInfo">{$article.description}</p>
+                                    <p class="text-danger">{$article.id|get_price}元/月</p>
+                                    <p><a href="{:url('Article/detail?id='.$article['id'])}" class="btn btn-danger zushouBtn">详细信息</a> </p>
+                                </div>
+                            </div>
+                        </div>
+                        {/article:list}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+{/block}

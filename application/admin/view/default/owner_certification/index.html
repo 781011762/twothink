@@ -2,7 +2,7 @@
 
 {block name="body"}
 	<div class="main-title">
-		<h2>报修管理</h2>
+		<h2>{$meta_title}</h2>
 	</div>
 
 	<div class="cf">
@@ -20,37 +20,38 @@
 						<input class="checkbox check-all" type="checkbox">
 					</th>
 					<th>ID</th>
-					<th>报修单号</th>
-					<th>报修人</th>
+					<th>用户id</th>
+					<th>姓名</th>
+					<th>房号</th>
+					<th>关系</th>
 					<th>电话</th>
-					<th>地址</th>
-					<th>问题</th>
-                    <th>报修时间</th>
+					<th>身份证号码</th>
+                    <th>创建时间</th>
                     <th>状态</th>
 					<th>操作</th>
 				</tr>
 			</thead>
 			<tbody>
 				{notempty name="list"}
-				{volist name="list" id="repair"}
+				{volist name="list" id="owner_certification"}
 					<tr>
-						<td><input class="ids row-selected" type="checkbox" name="id[]" value="{$repair.id}"></td>
-						<td>{$repair.id}</td>
-						<td>{$repair.sn}</td>
-						<td>{$repair.name}</td>
-						<td>{$repair.tel}</td>
-						<td>{$repair.address}</td>
-						<td>{$repair.title}</td>
-						<td>{$repair.create_time|time_format}</td>
+						<td><input class="ids row-selected" type="checkbox" name="id[]" value="{$owner_certification.id}"></td>
+						<td>{$owner_certification.id}</td>
+						<td>{$owner_certification.uid}</td>
+						<td>{$owner_certification.name}</td>
+						<td>{$owner_certification.room_id}</td>
+						<td>{$owner_certification.relation}</td>
+						<td>{$owner_certification.tel}</td>
+						<td>{$owner_certification.id_card}</td>
+						<td>{$owner_certification.create_time|time_format}</td>
 						<td>
-							<a href="{:url('setStatus?ids='.$repair['id'].'&status='.abs(1-$repair['status']))}" class="ajax-get">
-								<button>{$repair.status==1?"未处理":"已处理"}</button>
+							<a href="{:url('setStatus?ids='.$owner_certification['id'].'&status='.abs(1-$owner_certification['status']))}" class="ajax-get">
+								<button>{$owner_certification.status==1?"未处理":"已处理"}</button>
 							</a>
 						</td>
 						<td>
-							<a title="报修详情" href="{:url('details?id='.$repair['id'])}">详情</a>
-							<a title="修改报修" href="{:url('edit?id='.$repair['id'])}">修改</a>
-							<a class="confirm ajax-get" title="删除" href="{:url('del?id='.$repair['id'])}">删除</a>
+							<a title="修改" href="{:url('edit?id='.$owner_certification['id'])}">修改</a>
+							<a class="confirm ajax-get" title="删除" href="{:url('del?id='.$owner_certification['id'])}">删除</a>
 						</td>
 					</tr>
 				{/volist}

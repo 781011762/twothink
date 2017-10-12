@@ -1,18 +1,17 @@
 <?php
 namespace app\admin\controller;
 
-class Repair extends Admin{
+class ActiveApplication extends Admin{
 	/**
-	 * 报修列表
+	 * 活动
 	 */
 	public function index(){
-		$pid = input('get.pid', 0);
 		/* 获取频道列表 */
-		$map  = array('status' => array('gt', -1), 'pid'=>$pid);
-		$list = \think\Db::name('Repair')->where($map)->order('sort asc,id asc')->select();
+		$map  = array('status' => array('gt', -1));
+		$list = model('ActiveApplication')->where($map)->order('create_time desc')->select();
 		$this->assign('list', $list);
-		$this->assign('pid', $pid);
-		$this->assign('meta_title' , '报修管理');
+		$this->assign('meta_title' , '活动申请管理');
+		var_dump($list[0]->getActiveByID("items")->data("title"));exit();
 		return $this->fetch();
 	}
 
@@ -42,14 +41,7 @@ class Repair extends Admin{
 				$this->error($Repair->getError());
 			}
 		} else {
-			$pid = input('pid', 0);
-			//获取父导航
-			if(!empty($pid)){
-				$parent = \think\Db::name('Repair')->where(array('id'=>$pid))->field('title')->find();
-				$this->assign('parent', $parent);
-			}
 
-			$this->assign('pid', $pid);
 			$this->assign('info',null);
 			$this->assign('meta_title', '新增报修');
 			return $this->fetch('edit');
@@ -63,15 +55,14 @@ class Repair extends Admin{
 	public function edit($id = 0){
 		if($this->request->isPost()){
 			$postdata = \think\Request::instance()->post();
-			$Repair = \think\Db::name("Repair");
-			$data = $Repair->update($postdata);
+			$Repair = model("Repair");
+			$data = $Repair->update($postdata,['id'=>$postdata['id']]);
 			if($data !== false){
 				$this->success('编辑成功', url('index'));
 			} else {
 				$this->error('编辑失败');
 			}
 		} else {
-			$info = array();
 			/* 获取数据 */
 			$info = \think\Db::name('Repair')->find($id);
 
@@ -79,18 +70,21 @@ class Repair extends Admin{
 				$this->error('获取配置信息错误');
 			}
 
-			$pid = input('get.pid', 0);
-			//获取父导航
-			if(!empty($pid)){
-				$parent = \think\Db::name('Repair')->where(array('id'=>$pid))->field('title')->find();
-				$this->assign('parent', $parent);
-			}
-
-			$this->assign('pid', $pid);
 			$this->assign('info', $info);
 			$this->meta_title = '修改报修';
 			return $this->fetch();
 		}
+	}
+	//查看详情
+	public function details($id = 0){
+		/* 获取数据 */
+		$info = \think\Db::name('Repair')->find($id);
+		if(false === $info){
+			$this->error('获取配置信息错误');
+		}
+		$this->assign('info', $info);
+		$this->assign('meta_title', '报修详情');
+		return $this->fetch('details');
 	}
 
 	/**
@@ -152,4 +146,5 @@ class Repair extends Admin{
 			$this->error('非法请求！');
 		}
 	}
+
 }

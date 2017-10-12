@@ -2,7 +2,7 @@
 {block name="body"}
 	<div class="main-title">
 		<h2>
-			{$info['id']?'修改':'添加'}报修
+			{$info['id']?'修改':'添加'}业主认证
 		</h2>
 	</div>
 <form action="{:url()}" method="post" class="form-horizontal">
@@ -13,27 +13,27 @@
 		</div>
 	</div>
 	<div class="form-item">
+		<label class="item-label">房号</label>
+		<div class="controls">
+			<input type="text" class="text input-large" name="room_id" value="{$info.room_id|default=''}">
+		</div>
+	</div>
+	<div class="form-item">
+		<label class="item-label">与业主的关系</label>
+		<div class="controls">
+			<input type="text" class="text input-large" name="relation" value="{$info.relation|default=''}">
+		</div>
+	</div>
+	<div class="form-item">
 		<label class="item-label">电话</label>
 		<div class="controls">
 			<input type="text" class="text input-large" name="tel" value="{$info.tel|default=''}">
 		</div>
 	</div>
 	<div class="form-item">
-		<label class="item-label">地址</label>
+		<label class="item-label">身份证号码</label>
 		<div class="controls">
-			<input type="text" class="text input-large" name="address" value="{$info.address|default=''}">
-		</div>
-	</div>
-	<div class="form-item">
-		<label class="item-label">标题(简述报修问题)</label>
-		<div class="controls">
-			<input type="text" class="text input-large" name="title" value="{$info.title|default=''}">
-		</div>
-	</div>
-	<div class="form-item">
-		<label class="item-label">内容<span class="check-tips">（详细叙述报修内容）</span></label>
-		<div class="controls textarea input-large">
-			<textarea name="content">{$info.content|default=''}</textarea>
+			<input type="text" class="text input-large" name="id_card" value="{$info.id_card|default=''}">
 		</div>
 	</div>
 	<div class="form-item">

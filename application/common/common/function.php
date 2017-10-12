@@ -1212,3 +1212,9 @@ function get_cover_path($id){
   $result = model('Picture')->where('id',$id)->value('path');
   return $result ? $result:'/static/static/nopic.jpg';
 }
+
+//获得自定义字段price,2017.10.8
+function get_price($id){
+	$result = model("Document")->detail($id);
+	return $result['price'];
+}

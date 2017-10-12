@@ -2,12 +2,11 @@
 {block name="body"}
 	<div class="main-title">
 		<h2>
-			{$info['id']?'修改':'添加'}报修
+			{$meta_title}
 		</h2>
 	</div>
-<form action="{:url()}" method="post" class="form-horizontal">
 	<div class="form-item">
-		<label class="item-label">姓名</label>
+		<label class="item-label">报修人</label>
 		<div class="controls">
 			<input type="text" class="text input-large" name="name" value="{$info.name|default=''}">
 		</div>
@@ -33,19 +32,38 @@
 	<div class="form-item">
 		<label class="item-label">内容<span class="check-tips">（详细叙述报修内容）</span></label>
 		<div class="controls textarea input-large">
-			<textarea name="content">{$info.content|default=''}</textarea>
+			<div name="content">{$info.content|default=''}</div>
 		</div>
 	</div>
-	<div class="form-item">
-		<input type="hidden" name="id" value="{$info.id|default=''}">
-		<button class="btn submit-btn ajax-post" id="submit" type="submit" target-form="form-horizontal">确 定</button>
-		<button class="btn btn-return" onclick="javascript:history.back(-1);return false;">返 回</button>
+<div class="form-item">
+	<label class="item-label">创建时间</label>
+	<div class="controls">
+		<input type="text" class="text input-large" name="tel" value="{$info.create_time|time_format}">
 	</div>
-</form>
+</div>
+<div class="form-item">
+	<label class="item-label">最后修改时间</label>
+	<div class="controls">
+		<input type="text" class="text input-large" name="tel" value="{$info.update_time|time_format}">
+	</div>
+</div>
+	<div class="form-item">
+		<label class="item-label">是否处理</label>
+		<div class="text input-large">
+			{$info.status==1?"未处理":"已处理"}
+		</div>
+	</div>
 {/block}
 {block name="script"}
 <script type="text/javascript" charset="utf-8">
 	//导航高亮
-	highlight_subnav('{:url('index')}');
+	highlight_subnav('{:url("index")}');
+</script>
+<script type="text/javascript" charset="UTF-8">
+	//禁用input框 和 文本框
+	$(function () {
+		$("body input").attr("disabled","disabled");
+		$("textarea").attr("disabled","disabled");
+    })
 </script>
 {/block}

@@ -91,14 +91,14 @@ class Document extends Model{
             $this->error = '文档被禁用或已删除！';
             return false;
         }
-        /* 获取模型数据 */
-        $logic  = logic($info['model_id']);//TODO
-        $detail = $logic->detail($id); //获取指定ID的数据
-        if(!$detail){
-            $this->error = $logic->getError();
-            return false;
-        }
-        return array_merge($info, $detail);
+	    /* 获取模型数据 */
+	    $logic  = logic($info['model_id']);//TODO
+	    $detail = $logic->detail($id); //获取指定ID的数据
+	    if(!$detail){
+		    $this->error = $logic->getError();
+		    return false;
+	    }
+	    return array_merge($info, $detail);
     }
 
     /**

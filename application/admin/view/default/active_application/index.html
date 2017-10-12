@@ -2,7 +2,7 @@
 
 {block name="body"}
 	<div class="main-title">
-		<h2>报修管理</h2>
+		<h2>{$meta_title}</h2>
 	</div>
 
 	<div class="cf">
@@ -19,29 +19,21 @@
 					<th class="row-selected">
 						<input class="checkbox check-all" type="checkbox">
 					</th>
-					<th>ID</th>
-					<th>报修单号</th>
-					<th>报修人</th>
-					<th>电话</th>
-					<th>地址</th>
-					<th>问题</th>
-                    <th>报修时间</th>
-                    <th>状态</th>
+					<th>活动</th>
+					<th>申请用户</th>
+					<th>申请时间</th>
+					<th>申请状态</th>
 					<th>操作</th>
 				</tr>
 			</thead>
 			<tbody>
 				{notempty name="list"}
-				{volist name="list" id="repair"}
+				{volist name="list" id="activeApplication"}
 					<tr>
 						<td><input class="ids row-selected" type="checkbox" name="id[]" value="{$repair.id}"></td>
-						<td>{$repair.id}</td>
-						<td>{$repair.sn}</td>
-						<td>{$repair.name}</td>
-						<td>{$repair.tel}</td>
-						<td>{$repair.address}</td>
-						<td>{$repair.title}</td>
-						<td>{$repair.create_time|time_format}</td>
+						<td>{$activeApplication.->items.title}</td>
+						<td>{$activeApplication.uid}</td>
+						<td>{$activeApplication.create_time|time_format}</td>
 						<td>
 							<a href="{:url('setStatus?ids='.$repair['id'].'&status='.abs(1-$repair['status']))}" class="ajax-get">
 								<button>{$repair.status==1?"未处理":"已处理"}</button>

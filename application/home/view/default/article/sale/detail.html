@@ -1,0 +1,15 @@
+{extend name="base/common"/}
+
+{block name="header"}
+<div class="container-fluid">
+    <div class="blank"></div>
+    <h3 class="noticeDetailTitle"><strong>{$info.title}</strong></h3>
+    <div class="noticeDetailInfo">{$info.author}</div>
+    <div class="noticeDetailInfo">发布时间：{$info.create_time|date='Y-m-d H:i',###}</div>
+    <div class="noticeDetailInfo">联系电话：{$info.tel}</div>
+    <h4 class="text-danger">价格:{$info.price}元/月</h4>
+    <div class="noticeDetailContent">
+        <img src="__ROOT__{$info.cover_id|get_cover_path}" />
+    </div>
+</div>
+{/block}

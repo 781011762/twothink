@@ -38,4 +38,55 @@ class Index extends Home{
 
 		return $this->fetch();
 	}
+	public function fuwu(){
+
+		return $this->fetch();
+	}
+
+	//小区通知
+	public function article($change){
+		if (!isset($change)){
+			return false;
+		}
+		switch ($change){
+			case 'inform':
+				$category = 42;
+				break;
+			case 'sever':
+				$category = 45;
+				break;
+			case 'activity':
+				$category = 44;
+				break;
+			case 'life_tips':
+				$category = 47;
+				break;
+			default:
+				return false;
+		}
+		$this->assign('category',$category);//栏目
+		return $this->fetch();
+	}
+	//ajax获取数据
+	public function ajaxPage($category,$page){
+		$this->assign('category',$category);//栏目;
+		$this->assign('page',++$page);//栏目;
+		return $this->fetch('ajax_page');
+	}
+	//小区租售
+	public function rental(){
+		return $this->fetch();
+	}
+
+	//关于我们
+	public function aboutUs(){
+		/* 获取详细信息 */
+		$info = model("Document")->detail(147);
+		if(!$info){
+			$this->error(model("Document")->getError());
+		}
+		$this->assign('info',$info);//栏目
+		return $this->fetch('about_us');
+	}
+
 }

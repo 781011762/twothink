@@ -2,6 +2,8 @@
 
 
 namespace app\home\controller;
+use think\Cookie;
+use think\Session;
 
 
 /**
@@ -10,7 +12,10 @@ namespace app\home\controller;
 class Base extends Home {
     protected function _initialize(){
         /* 用户登录检测 */
-        is_login() || $this->error('您还没有登录，请先登录！', url('Login/index'));
+        if (!is_login()){
+			Cookie::set("__forward__",$_SERVER["HTTP_REFERER"]);
+	        $this->error('您还没有登录，请先登录！', url('User/Login/index'));
+        }
         parent::_initialize();
     }
 
