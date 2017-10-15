@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:80:"D:\tt.com\public/../application/admin/view/default/active_application\index.html";i:1507710344;s:67:"D:\tt.com\public/../application/admin/view/default/public\base.html";i:1496373782;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:67:"D:\tt.com\public/../application/admin/view/default/index\index.html";i:1496373782;s:67:"D:\tt.com\public/../application/admin/view/default/public\base.html";i:1496373782;}*/ ?>
 <!doctype html>
 <html>
 <head>
@@ -17,6 +17,11 @@
     <script type="text/javascript" src="__PUBLIC__/admin/js/jquery.mousewheel.js"></script>
     <!--<![endif]-->
     
+    <style>
+        body{padding: 0}
+        #main{margin-top: 50px;}
+    </style>
+
 </head>
 <body>
     <!-- 头部 -->
@@ -52,24 +57,6 @@
     <div class="sidebar">
         <!-- 子导航 -->
         
-            <div id="subnav" class="subnav">
-                <?php if(!(empty($_extra_menu) || (($_extra_menu instanceof \think\Collection || $_extra_menu instanceof \think\Paginator ) && $_extra_menu->isEmpty()))): ?>
-                    
-                    <?php echo extra_menu($_extra_menu,$__MENU__); endif; if(is_array($__MENU__['child']) || $__MENU__['child'] instanceof \think\Collection || $__MENU__['child'] instanceof \think\Paginator): $i = 0; $__LIST__ = $__MENU__['child'];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$sub_menu): $mod = ($i % 2 );++$i;?>
-                    <!-- 子导航 -->
-                    <?php if(!(empty($sub_menu) || (($sub_menu instanceof \think\Collection || $sub_menu instanceof \think\Paginator ) && $sub_menu->isEmpty()))): if(!(empty($key) || (($key instanceof \think\Collection || $key instanceof \think\Paginator ) && $key->isEmpty()))): ?><h3><i class="icon icon-unfold"></i><?php echo $key; ?></h3><?php endif; ?>
-                        <ul class="side-sub-menu">
-                            <?php if(is_array($sub_menu) || $sub_menu instanceof \think\Collection || $sub_menu instanceof \think\Paginator): $i = 0; $__LIST__ = $sub_menu;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$menu): $mod = ($i % 2 );++$i;?>
-                                <li>
-                                    <a class="item" href="<?php echo url($menu['url']); ?>"><?php echo $menu['title']; ?></a>
-                                </li>
-                            <?php endforeach; endif; else: echo "" ;endif; ?>
-                        </ul>
-                    <?php endif; ?>
-                    <!-- /子导航 -->
-                <?php endforeach; endif; else: echo "" ;endif; ?>
-            </div>
-        
         <!-- /子导航 -->
     </div>
     <!-- /边栏 -->
@@ -100,56 +87,11 @@
             
 
             
-	<div class="main-title">
-		<h2><?php echo $meta_title; ?></h2>
-	</div>
-
-	<div class="cf">
-		<a class="btn" href="<?php echo url('add','pid='.$pid); ?>">新 增</a>
-		<button class="btn ajax-post confirm" url="<?php echo url('del'); ?>" target-form="ids">批量删除</button>
-		<button class="btn list_sort" url="<?php echo url('sort',array('pid'=>input('get.pid',0)),''); ?>">排序</button>
-	</div>
-
-	<div class="data-table table-striped">
-		<form class="ids">
-			<table>
-			<thead>
-				<tr>
-					<th class="row-selected">
-						<input class="checkbox check-all" type="checkbox">
-					</th>
-					<th>活动</th>
-					<th>申请用户</th>
-					<th>申请时间</th>
-					<th>申请状态</th>
-					<th>操作</th>
-				</tr>
-			</thead>
-			<tbody>
-				<?php if(!(empty($list) || (($list instanceof \think\Collection || $list instanceof \think\Paginator ) && $list->isEmpty()))): if(is_array($list) || $list instanceof \think\Collection || $list instanceof \think\Paginator): $i = 0; $__LIST__ = $list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$activeApplication): $mod = ($i % 2 );++$i;?>
-					<tr>
-						<td><input class="ids row-selected" type="checkbox" name="id[]" value="<?php echo $repair['id']; ?>"></td>
-						<td><?php echo $activeApplication['items']['title']; ?></td>
-						<td><?php echo $activeApplication['uid']; ?></td>
-						<td><?php echo time_format($activeApplication['create_time']); ?></td>
-						<td>
-							<a href="<?php echo url('setStatus?ids='.$repair['id'].'&status='.abs(1-$repair['status'])); ?>" class="ajax-get">
-								<button><?php echo !empty($repair['status']) && $repair['status']==1?"未处理":"已处理"; ?></button>
-							</a>
-						</td>
-						<td>
-							<a title="报修详情" href="<?php echo url('details?id='.$repair['id']); ?>">详情</a>
-							<a title="修改报修" href="<?php echo url('edit?id='.$repair['id']); ?>">修改</a>
-							<a class="confirm ajax-get" title="删除" href="<?php echo url('del?id='.$repair['id']); ?>">删除</a>
-						</td>
-					</tr>
-				<?php endforeach; endif; else: echo "" ;endif; else: ?>
-				<td colspan="6" class="text-center"> aOh! 暂时还没有内容! </td>
-				<?php endif; ?>
-			</tbody>
-		</table>
-		</form>
-	</div>
+    <!-- 主体 -->
+    <div id="indexMain" class="index-main">
+       <!-- 插件块 -->
+       <div class="container-span"><?php echo hook('AdminIndex'); ?></div>
+    </div>
 
         </div>
         <div class="cont-ft">
@@ -248,25 +190,18 @@
     </script>
     
 <script type="text/javascript">
-    $(function() {
-    	//点击排序
-    	$('.list_sort').click(function(){
-    		var url = $(this).attr('url');
-    		var ids = $('.ids:checked');
-    		var param = '';
-    		if(ids.length > 0){
-    			var str = new Array();
-    			ids.each(function(){
-    				str.push($(this).val());
-    			});
-    			param = str.join(',');
-    		}
-
-    		if(url != undefined && url != ''){
-    			window.location.href = url + '/ids/' + param;
-    		}
-    	});
-    });
+    /* 插件块关闭操作 */
+    $(".title-opt .wm-slide").each(function(){
+        $(this).click(function(){
+            $(this).closest(".columns-mod").find(".bd").toggle();
+            $(this).find("i").toggleClass("mod-up");
+        });
+    })
+    $(function(){
+        // $('#main').attr({'id': 'indexMain','class': 'index-main'});
+        $('.copyright').html('<div class="copyright"> ©2013-2016 艺品网络工作室版权所有</div>');
+        $('.sidebar').remove();
+    })
 </script>
 
 </body>

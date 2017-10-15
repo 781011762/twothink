@@ -60,9 +60,12 @@ class Document extends Model{
      * @param  string   $field    字段 true-所有字段
      * @return array              文档列表
      */
-    public function lists($category, $order = '`id` DESC', $status = 1, $field = true){
+    public function lists($category, $order = '`id` DESC', $status = 1, $field = true,$limit=null){
         $map = $this->listMap($category, $status);
-        return $this->field($field)->with('picture')->where($map)->order($order)->select();
+        if ($limit==null){
+	        return $this->field($field)->with('picture')->where($map)->order($order)->select();
+        }
+        return $this->field($field)->with('picture')->where($map)->order($order)->limit(0,$limit)->select();
     }
 
     /**

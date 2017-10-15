@@ -67,7 +67,7 @@ class Index extends Home{
 		$this->assign('category',$category);//栏目
 		return $this->fetch();
 	}
-	//ajax获取数据
+	//ajax分页
 	public function ajaxPage($category,$page){
 		$this->assign('category',$category);//栏目;
 		$this->assign('page',++$page);//栏目;

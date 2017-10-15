@@ -114,12 +114,12 @@ class File extends Driver
                 $this->unlink($filename);
                 return $default;
             }
-            $content = substr($content, 20, -3);
+	        $content = substr($content, 20, -3);
             if ($this->options['data_compress'] && function_exists('gzcompress')) {
                 //启用数据压缩
                 $content = gzuncompress($content);
             }
-            $content = unserialize($content);
+	        $content = unserialize($content);
             return $content;
         } else {
             return $default;

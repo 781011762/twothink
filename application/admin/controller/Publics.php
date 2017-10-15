@@ -24,8 +24,8 @@ class Publics extends Controller {
 			$config ['var_controller'] = request()->controller();
 			$config ['var_action'] = request()->action(); 
 			$config ['template']['view_path'] = APP_PATH.'admin/view/'.$config['admin_view_path'].'/'; //模板主题
-			$config['dispatch_error_tmpl' ]    =  APP_PATH .'admin'. DS .'view' . DS .$config['admin_view_path'].DS. 'public' . DS . 'error.html'; // 默认错误跳转对应的模板文件
-			$config['dispatch_success_tmpl' ]  =  APP_PATH .'admin'. DS .'view' . DS .$config['admin_view_path'].DS. 'public' . DS . 'success.html'; // 默认成功跳转对应的模板文件
+			$config['dispatch_error_tmpl']    =  APP_PATH .'admin'. DS .'view' . DS .$config['admin_view_path'].DS. 'public' . DS . 'error.html'; // 默认错误跳转对应的模板文件
+			$config['dispatch_success_tmpl']  =  APP_PATH .'admin'. DS .'view' . DS .$config['admin_view_path'].DS. 'public' . DS . 'success.html'; // 默认成功跳转对应的模板文件
 			cache('db_config_data', $config);
 		}
 		config($config);//添加配置
@@ -74,7 +74,6 @@ class Publics extends Controller {
                     cache('db_config_data', $config);
                 }
                 config($config);//添加配置
-                
                 return $this->fetch();
             }
         }

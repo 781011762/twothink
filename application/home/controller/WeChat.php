@@ -1,6 +1,7 @@
 <?php
 namespace app\home\controller;
 
+use app\home\model\Document;
 use EasyWeChat\Foundation\Application;
 use EasyWeChat\Message\News;
 use think\Controller;
@@ -77,8 +78,7 @@ class WeChat extends Controller
 		$server->setMessageHandler(function ($message) {
 			switch ($message->MsgType) {
 				case 'event':
-					$this->event();
-					return '收到事件消息';
+					return $this->event($message);
 					break;
 				case 'text':
 					return $this->text($message);
@@ -109,9 +109,24 @@ class WeChat extends Controller
 		$response->send(); // Laravel 里请使用：return $response;
 	}
 
-	private function event()
+	private function event($message)
 	{
 
+		switch ($message->Event) {
+			case 'CLICK':
+				switch ($message->EventKey) {
+					case "V1001_TODAY_MUSIC":
+						return $this->getActivities();//返回活动列表
+						break;
+					default:
+						return "没有这个事件:".$message->EventKey;
+						break;
+				}
+				break;
+			default:
+				return "没有这个事件";
+				break;
+		}
 	}
 	private function text($message)
 	{
@@ -190,7 +205,7 @@ class WeChat extends Controller
 		}
 		return $news;
 	}
-	public function setMenu()
+	public function setMenu()//设置微信菜单
 	{
 		$buttons = [
 			[
@@ -253,6 +268,26 @@ class WeChat extends Controller
 		$app = new Application($this->_options);
 		$menu = $app->menu;
 		$menu->add($buttons);
-
+	}
+	public function getActivities()//获得最新的5条活动
+	{
+		$id = 44;//小区活动的ID
+		/* 获取当前分类列表 */
+		$Document = new Document();
+		$lists = $Document->lists($id,'`create_time` DESC',1,true,5);
+		if ($lists==[]){
+			return "没有获取到活动哦!";
+		}
+		$news = [];
+		foreach ($lists as $list){
+			$list = json_decode((string)$list);
+			$news[] = new News([
+				'title'       => $list->title,
+				'description' => $list->description,
+				'url'         => "http://tt.9ymc.top/home/article/detail/id/".$list->id,
+				'image'       => "http://tt.9ymc.top/".$list->picture->path,
+			]);
+		}
+		return $news;
 	}
 }
