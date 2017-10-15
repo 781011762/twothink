@@ -234,12 +234,20 @@ class WeChat extends Controller
 					[
 						"type" => "view",
 						"name" => "发现",
-						"url"  => "http://tt.9ymc.top/home/index/fuwu"
+						"url"  => "http://tt.9ymc.top/home/index/faxian"
+					],
+					[
+						"type" => "click",
+						"name" => "活动",
+						"key"  => "V1001_TODAY_MUSIC"
+					],
+					[
+						"type" => "view",
+						"name" => "个人中心",
+						"url"  => "http://tt.9ymc.top/home/index/my"
 					],
 				],
-				"type" => "click",
-				"name" => "今日歌曲",
-				"key"  => "V1001_TODAY_MUSIC"
+
 			],
 		];
 		$app = new Application($this->_options);

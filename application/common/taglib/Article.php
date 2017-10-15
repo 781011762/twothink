@@ -44,7 +44,7 @@ class Article extends TagLib{
         $parse .= '$__CATE__ = model(\'Category\')->getChildrenId('.$cate.');'; 
         $parse .= '$__WHERE__ = model(\'Document\')->listMap($__CATE__);';
 //	     $parse .= '$__LIST__ = \think\Db::name(\'Document\')->where($__WHERE__)->field($field)->order(\'`level` DESC,`id` DESC\')->page(!empty($_GET["p"])?$_GET["p"]:1,'.$row.')->select();';
-        $parse .= '$__LIST__ = \think\Db::name(\'Document\')->'.$where.'->field($field)->order(\'`level` DESC,`id` DESC\')->paginate('.$row.');';
+        $parse .= '$__LIST__ = \think\Db::name(\'Document\')->'.$where.'->field($field)->order(\'`level` DESC,`create_time` DESC\')->paginate('.$row.');';
 //       $parse .= '$__PAGE__=$__LIST__->render(); ';
         $parse .=  'if($__LIST__){ $__LIST__=$__LIST__->toArray(); $__LIST__=$__LIST__[\'data\'];}';
         $parse .= ' ?>'; 
