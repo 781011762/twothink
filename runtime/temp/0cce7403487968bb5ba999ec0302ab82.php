@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:66:"D:\tt.com\public/../application/home/view/default/index\index.html";i:1507475049;s:66:"D:\tt.com\public/../application/home/view/default/base\common.html";i:1507827694;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:66:"D:\tt.com\public/../application/home/view/default/index\index.html";i:1507475049;s:66:"D:\tt.com\public/../application/home/view/default/base\common.html";i:1507827861;}*/ ?>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -38,7 +38,7 @@
 				<p class="navbar-text"><a href="<?php echo url('index/faxian'); ?>" class="navbar-link">发现</a></p>
 			</div>
 			<div class="col-xs-3">
-				<p class="navbar-text"><a href="my.html" class="navbar-link">我的</a></p>
+				<p class="navbar-text"><a href="<?php echo url('index/my'); ?>" class="navbar-link">我的</a></p>
 			</div>
 		</div>
 	</nav>

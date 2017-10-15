@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:69:"D:\tt.com\public/../application/user/view/default/login\register.html";i:1506697056;s:66:"D:\tt.com\public/../application/user/view/default/base\common.html";i:1506696888;s:63:"D:\tt.com\public/../application/user/view/default/base\var.html";i:1496373782;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:69:"D:\tt.com\public/../application/user/view/default/login\register.html";i:1506697056;s:66:"D:\tt.com\public/../application/user/view/default/base\common.html";i:1507827237;s:63:"D:\tt.com\public/../application/user/view/default/base\var.html";i:1496373782;}*/ ?>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -30,10 +30,10 @@
 	<nav class="navbar navbar-default navbar-fixed-bottom">
 		<div class="container-fluid text-center">
 			<div class="col-xs-3">
-				<p class="navbar-text"><a href="index.html" class="navbar-link">首页</a></p>
+				<p class="navbar-text"><a href="<?php echo url('Home/index/index'); ?>" class="navbar-link">首页</a></p>
 			</div>
 			<div class="col-xs-3">
-				<p class="navbar-text"><a href="#" class="navbar-link">服务</a></p>
+				<p class="navbar-text"><a href="<?php echo url('Home/index/fuwu'); ?>" class="navbar-link">服务</a></p>
 			</div>
 			<div class="col-xs-3">
 				<p class="navbar-text"><a href="#" class="navbar-link">发现</a></p>
