@@ -89,4 +89,25 @@ class Index extends Home{
 		return $this->fetch('about_us');
 	}
 
+	//发现
+	public function faxian(){
+		/* 获取详细信息 */
+/*		$info = model("Document")->detail(147);
+		if(!$info){
+			$this->error(model("Document")->getError());
+		}
+		$this->assign('info',$info);//栏目*/
+		return $this->fetch('faxian');
+	}
+
+//发现
+	public function my(){
+		/* 获取详细信息 */
+		/*		$info = model("Document")->detail(147);
+				if(!$info){
+					$this->error(model("Document")->getError());
+				}
+				$this->assign('info',$info);//栏目*/
+		return $this->fetch('my');
+	}
 }

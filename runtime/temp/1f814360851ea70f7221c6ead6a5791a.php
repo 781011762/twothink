@@ -1,3 +1,4 @@
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:67:"D:\tt.com\public/../application/home/view/default/index\faxian.html";i:1507827856;s:66:"D:\tt.com\public/../application/home/view/default/base\common.html";i:1507827861;}*/ ?>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -28,26 +29,38 @@
 	<nav class="navbar navbar-default navbar-fixed-bottom">
 		<div class="container-fluid text-center">
 			<div class="col-xs-3">
-				<p class="navbar-text"><a href="{:url('index/index')}" class="navbar-link">首页</a></p>
+				<p class="navbar-text"><a href="<?php echo url('index/index'); ?>" class="navbar-link">首页</a></p>
 			</div>
 			<div class="col-xs-3">
-				<p class="navbar-text"><a href="{:url('index/fuwu')}" class="navbar-link">服务</a></p>
+				<p class="navbar-text"><a href="<?php echo url('index/fuwu'); ?>" class="navbar-link">服务</a></p>
 			</div>
 			<div class="col-xs-3">
-				<p class="navbar-text"><a href="{:url('index/faxian')}" class="navbar-link">发现</a></p>
+				<p class="navbar-text"><a href="<?php echo url('index/faxian'); ?>" class="navbar-link">发现</a></p>
 			</div>
 			<div class="col-xs-3">
-				<p class="navbar-text"><a href="{:url('index/my')}" class="navbar-link">我的</a></p>
+				<p class="navbar-text"><a href="<?php echo url('index/my'); ?>" class="navbar-link">我的</a></p>
 			</div>
 		</div>
 	</nav>
 	<!--导航结束-->
-	{block name="header"}{/block}
+	
+<div class="container-fluid">
+    <div class="indexImg row">
+        <img src="__STATIC__/app/image/4.png" width="100%" />
+    </div>
+    <div class="blank"></div>
+    <div class="container">
+        <ul class="list-group fuwuList">
+            <li class="list-group-item"><a href="<?php echo url('index/article?change=life_tips'); ?>" class="text-danger"><span class="iconfont">&#xe604;</span>商家活动</a> </li>
+        </ul>
+    </div>
+</div>
+
 
 </div>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="__STATIC__/app/jquery-1.11.2.min.js"></script>
-{block name="script"}{/block} <!-- 用于加载js代码 -->
+ <!-- 用于加载js代码 -->
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="__STATIC__/app/bootstrap/js/bootstrap.min.js"></script>
 </body>
