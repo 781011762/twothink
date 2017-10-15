@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:65:"D:\tt.com\public/../application/home/view/default/index\fuwu.html";i:1507475071;s:66:"D:\tt.com\public/../application/home/view/default/base\common.html";i:1507827861;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:68:"D:\tt.com\public/../application/home/view/default/index\article.html";i:1507457782;s:66:"D:\tt.com\public/../application/home/view/default/base\common.html";i:1507827861;}*/ ?>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -44,26 +44,22 @@
 	</nav>
 	<!--导航结束-->
 	
-    <div class="container-fluid">
-        <div class="indexImg row">
-            <img src="__STATIC__/app/image/3.png" width="100%" />
-        </div>
-        <div class="blank"></div>
-        <div class="container">
-            <ul class="list-group fuwuList">
-                <li class="list-group-item"><a href="diaochawenjuan.html" class="text-danger"><span class="iconfont">&#xe604;</span>调查问卷</a> </li>
-                <li class="list-group-item"><a href="<?php echo url('member/ownerCertification'); ?>" class="text-info"><span class="iconfont">&#xe605;</span>业主认证</a></li>
-                <li class="list-group-item"><a href="#" class="text-success"><span class="iconfont">&#xe602;</span>在线缴费</a></li>
-                <li class="list-group-item"><a href="<?php echo url('index/article?change=life_tips'); ?>" class="text-warning"><span class="iconfont">&#xe601;</span>生活贴士</a></li>
-                <li class="list-group-item"><a href="<?php echo url('index/aboutUs'); ?>" class="text-primary"><span class="iconfont">&#xe600;</span>关于我们</a></li>
-            </ul>
-        </div>
-    </div>
+<div class="container-fluid" id="content"></div>
 
 
 </div>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="__STATIC__/app/jquery-1.11.2.min.js"></script>
+
+<script>
+    var loadPage = function ($category,$page) {
+        $(".more").remove();
+        $.get("<?php echo url('index/ajaxPage'); ?>",{category:$category,page:$page},function (data) {
+            $("#content").append(data) ;
+        })
+    }
+loadPage(<?php echo $category; ?>,1);
+</script>
  <!-- 用于加载js代码 -->
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="__STATIC__/app/bootstrap/js/bootstrap.min.js"></script>
