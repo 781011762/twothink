@@ -39,7 +39,7 @@ class Article extends TagLib{
         }else{
         	$where = 'where(array_merge($__WHERE__,["model_id"=>'.$model.']))';
         }
- 
+ //
         $parse  = '<?php ';
         $parse .= '$__CATE__ = model(\'Category\')->getChildrenId('.$cate.');'; 
         $parse .= '$__WHERE__ = model(\'Document\')->listMap($__CATE__);';
